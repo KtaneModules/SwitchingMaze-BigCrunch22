@@ -13,6 +13,7 @@ public class SwitchingMazeScript : MonoBehaviour
     public KMBombModule Module;
 
     public AudioClip[] SFX;
+	public AudioSource Digger;
 	public Material[] BorderColor;
 	public MeshRenderer Border;
 
@@ -453,6 +454,7 @@ public class SwitchingMazeScript : MonoBehaviour
                 Copper[a][b] = ((Copper[2][0] * 64) + (Copper[2][1])) % 6;
             }
         }
+		Debug.LogFormat("[Swtiching Maze #{0}] {1}", moduleId, Seedling.text);
         Debug.LogFormat("[Swtiching Maze #{2}] Your starting coordinance is: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
         Debug.LogFormat("[Swtiching Maze #{2}] Your destination is: {0}, {1}", Copper[1][0].ToString(), Copper[1][1].ToString(), moduleId);
     }
@@ -468,13 +470,13 @@ public class SwitchingMazeScript : MonoBehaviour
         }
         Audio.PlaySoundAtTransform(SFX[3].name, transform);
         yield return new WaitForSecondsRealtime(1.8f);
-        Audio.PlaySoundAtTransform(SFX[4].name, transform);
-        for (int c = 0; c < 155; c++)
-        {
+		Digger.clip = SFX[4];
+		Digger.Play();
+        while (Digger.isPlaying)
+		{
             int ColorMemorem = UnityEngine.Random.Range(0,12);
 			Border.material = BorderColor[ColorMemorem];
-            yield return new WaitForSecondsRealtime(0.02f);
-			yield return new WaitForSecondsRealtime(0.02f);
+            yield return new WaitForSecondsRealtime(0.04f);
         }
         Audio.PlaySoundAtTransform(SFX[5].name, transform);
         Module.HandleStrike();
@@ -500,13 +502,13 @@ public class SwitchingMazeScript : MonoBehaviour
         }
         Audio.PlaySoundAtTransform(SFX[6].name, transform);
         yield return new WaitForSecondsRealtime(.75f);
-        Audio.PlaySoundAtTransform(SFX[4].name, transform);
-        for (int c = 0; c < 155; c++)
-        {
+		Digger.clip = SFX[4];
+		Digger.Play();
+        while (Digger.isPlaying)
+		{
 			int ColorMemorem = UnityEngine.Random.Range(0,12);
 			Border.material = BorderColor[ColorMemorem];
-            yield return new WaitForSecondsRealtime(0.02f);
-			yield return new WaitForSecondsRealtime(0.02f);
+            yield return new WaitForSecondsRealtime(0.04f);
         }
         if (Copper[0][0] == Copper[1][0] && Copper[0][1] == Copper[1][1])
         {
