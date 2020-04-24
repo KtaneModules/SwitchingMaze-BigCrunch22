@@ -215,7 +215,7 @@ public class SwitchingMazeScript : MonoBehaviour
 			yield return new WaitForSecondsRealtime(0.05f);
 		}
 		Border.material = BorderColor[NumberBasis];
-		Debug.LogFormat("[Swtiching Maze #{0}] Your starting maze color: {1}", moduleId, ColorsOfMaze[NumberBasis]);
+		Debug.LogFormat("[Switching Maze #{0}] Your starting maze color: {1}", moduleId, ColorsOfMaze[NumberBasis]);
 		ColorLog();
 	}
 
@@ -241,7 +241,7 @@ public class SwitchingMazeScript : MonoBehaviour
 				yield return new WaitForSecondsRealtime(0.05f);
 			}
 			Border.material = BorderColor[NumberBasis];
-			Debug.LogFormat("[Swtiching Maze #{0}] The maze switch its color to: {1}", moduleId, ColorsOfMaze[NumberBasis]);
+			Debug.LogFormat("[Switching Maze #{0}] The maze switch its color to: {1}", moduleId, ColorsOfMaze[NumberBasis]);
 		}
 		ColorLog();
     }
@@ -251,77 +251,77 @@ public class SwitchingMazeScript : MonoBehaviour
 		Kelp = Mazes[NumberBasis][Copper[0][0]][Copper[0][1]];
 		if (Kelp == "A")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: East", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: East", moduleId);
 		}
 		
 		else if (Kelp == "B")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: South", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: South", moduleId);
 		}
 		
 		else if (Kelp == "C")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: West", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: West", moduleId);
 		}
 		
 		else if (Kelp == "D")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: North", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: North", moduleId);
 		}
 		
 		else if (Kelp == "E")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: North/West", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: North/West", moduleId);
 		}
 		
 		else if (Kelp == "F")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: North/East", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: North/East", moduleId);
 		}
 		
 		else if (Kelp == "G")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: South/East", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: South/East", moduleId);
 		}
 		
 		else if (Kelp == "H")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: South/West", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: South/West", moduleId);
 		}
 		
 		else if (Kelp == "I")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: East/West", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: East/West", moduleId);
 		}
 		
 		else if (Kelp == "J")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: North/South", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: North/South", moduleId);
 		}
 		
 		else if (Kelp == "K")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: South/West/North", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: South/West/North", moduleId);
 		}
 		
 		else if (Kelp == "L")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: West/North/East", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: West/North/East", moduleId);
 		}
 		
 		else if (Kelp == "M")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: North/East/South", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: North/East/South", moduleId);
 		}
 		
 		else if (Kelp == "N")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: East/South/West", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: East/South/West", moduleId);
 		}
 		
 		else if (Kelp == "O")
 		{
-			Debug.LogFormat("[Swtiching Maze #{0}] Current wall on your cell: -", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] Current wall on your cell: -", moduleId);
 		}
 	}
 
@@ -339,7 +339,7 @@ public class SwitchingMazeScript : MonoBehaviour
         {
             if (Movement == 0)
             {
-				Debug.LogFormat("[Swtiching Maze #{0}] You moved north.", moduleId);
+				Debug.LogFormat("[Switching Maze #{0}] You moved north.", moduleId);
                 if (Copper[0][0] == 0 || Kelp == "D" || Kelp == "E" || Kelp == "F" || Kelp == "J" || Kelp == "K" || Kelp == "L" || Kelp == "M")
                 {
                     StartCoroutine(Incorrect());
@@ -353,14 +353,14 @@ public class SwitchingMazeScript : MonoBehaviour
                         Steppers[q].SetActive(false);
                     }
                     StartCoroutine(Stepyard());
-					Debug.LogFormat("[Swtiching Maze #{2}] Your are currently on: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
+					Debug.LogFormat("[Switching Maze #{2}] Your are currently on: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
 					StartCoroutine(ColorSwitch());
                 }
             }
 
             if (Movement == 1)
             {
-				Debug.LogFormat("[Swtiching Maze #{0}] You moved south.", moduleId);
+				Debug.LogFormat("[Switching Maze #{0}] You moved south.", moduleId);
                 if (Copper[0][0] == 5 || Kelp == "B" || Kelp == "G" || Kelp == "H" || Kelp == "J" || Kelp == "K" || Kelp == "M" || Kelp == "N")
                 {
                     StartCoroutine(Incorrect());
@@ -373,7 +373,7 @@ public class SwitchingMazeScript : MonoBehaviour
                     {
                         Steppers[q].SetActive(false);
                     }
-					Debug.LogFormat("[Swtiching Maze #{2}] Your are currently on: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
+					Debug.LogFormat("[Switching Maze #{2}] Your are currently on: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
                     StartCoroutine(Stepyard());
 					StartCoroutine(ColorSwitch());
                 }
@@ -381,7 +381,7 @@ public class SwitchingMazeScript : MonoBehaviour
 
             if (Movement == 2)
             {
-				Debug.LogFormat("[Swtiching Maze #{0}] You moved east.", moduleId);
+				Debug.LogFormat("[Switching Maze #{0}] You moved east.", moduleId);
                 if (Copper[0][1] == 5 || Kelp == "A" || Kelp == "F" || Kelp == "G" || Kelp == "I" || Kelp == "L" || Kelp == "M" || Kelp == "N")
                 {
                     StartCoroutine(Incorrect());
@@ -394,7 +394,7 @@ public class SwitchingMazeScript : MonoBehaviour
                     {
                         Steppers[q].SetActive(false);
                     }
-					Debug.LogFormat("[Swtiching Maze #{2}] Your are currently on: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
+					Debug.LogFormat("[Switching Maze #{2}] Your are currently on: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
                     StartCoroutine(Stepyard());
 					StartCoroutine(ColorSwitch());
                 }
@@ -402,7 +402,7 @@ public class SwitchingMazeScript : MonoBehaviour
 
             if (Movement == 3)
             {
-				Debug.LogFormat("[Swtiching Maze #{0}] You moved west.", moduleId);
+				Debug.LogFormat("[Switching Maze #{0}] You moved west.", moduleId);
                 if (Copper[0][1] == 0 || Kelp == "C" || Kelp == "E" || Kelp == "H" || Kelp == "I" || Kelp == "K" || Kelp == "L" || Kelp == "N")
                 {
                     StartCoroutine(Incorrect());
@@ -416,7 +416,7 @@ public class SwitchingMazeScript : MonoBehaviour
                         Steppers[q].SetActive(false);
                     }
                     StartCoroutine(Stepyard());
-					Debug.LogFormat("[Swtiching Maze #{2}] Your are currently on: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
+					Debug.LogFormat("[Switching Maze #{2}] Your are currently on: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
 					StartCoroutine(ColorSwitch());
                 }
             }
@@ -454,14 +454,14 @@ public class SwitchingMazeScript : MonoBehaviour
                 Copper[a][b] = ((Copper[2][0] * 64) + (Copper[2][1])) % 6;
             }
         }
-		Debug.LogFormat("[Swtiching Maze #{0}] {1}", moduleId, Seedling.text);
-        Debug.LogFormat("[Swtiching Maze #{2}] Your starting coordinance is: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
-        Debug.LogFormat("[Swtiching Maze #{2}] Your destination is: {0}, {1}", Copper[1][0].ToString(), Copper[1][1].ToString(), moduleId);
+		Debug.LogFormat("[Switching Maze #{0}] {1}", moduleId, Seedling.text);
+        Debug.LogFormat("[Switching Maze #{2}] Your starting coordinance is: {0}, {1}", Copper[0][0].ToString(), Copper[0][1].ToString(), moduleId);
+        Debug.LogFormat("[Switching Maze #{2}] Your destination is: {0}, {1}", Copper[1][0].ToString(), Copper[1][1].ToString(), moduleId);
     }
 
     IEnumerator Incorrect()
     {
-		Debug.LogFormat("[Swtiching Maze #{0}] You slammed on a wall. The mazing is now moving.", moduleId);
+		Debug.LogFormat("[Switching Maze #{0}] You slammed on a wall. The mazing is now moving.", moduleId);
         MovingAgain = true;
 		MazeMoving = true;
         for (int q = 0; q < 7; q++)
@@ -480,7 +480,7 @@ public class SwitchingMazeScript : MonoBehaviour
         }
         Audio.PlaySoundAtTransform(SFX[5].name, transform);
         Module.HandleStrike();
-		Debug.LogFormat("[Swtiching Maze #{0}] A strike was given to you.", moduleId);
+		Debug.LogFormat("[Switching Maze #{0}] A strike was given to you.", moduleId);
         Coordinance();
         StartCoroutine(FirstColor());
         for (int q = 0; q < 7; q++)
@@ -493,7 +493,7 @@ public class SwitchingMazeScript : MonoBehaviour
 
     IEnumerator ActualStep()
     {
-		Debug.LogFormat("[Swtiching Maze #{0}] You activated your current platform. The maze is now moving.", moduleId);
+		Debug.LogFormat("[Switching Maze #{0}] You activated your current platform. The maze is now moving.", moduleId);
         MovingAgain = true;
 		MazeMoving = true;
         for (int q = 0; q < 7; q++)
@@ -518,13 +518,13 @@ public class SwitchingMazeScript : MonoBehaviour
 			Border.material = BorderColor[11];
             yield return new WaitForSecondsRealtime(1f);
             Audio.PlaySoundAtTransform(SFX[7].name, transform);
-			Debug.LogFormat("[Swtiching Maze #{0}] You stepped the correct platform. Module solved.", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] You stepped the correct platform. Module solved.", moduleId);
         }
         else
         {
             Audio.PlaySoundAtTransform(SFX[5].name, transform);
             Module.HandleStrike();
-			Debug.LogFormat("[Swtiching Maze #{0}] You stepped on an incorrect platform. A strike was given.", moduleId);
+			Debug.LogFormat("[Switching Maze #{0}] You stepped on an incorrect platform. A strike was given.", moduleId);
             Coordinance();
             StartCoroutine(FirstColor());
             for (int q = 0; q < 7; q++)
