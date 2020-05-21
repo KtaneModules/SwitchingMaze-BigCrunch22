@@ -562,6 +562,7 @@ public class SwitchingMazeScript : MonoBehaviour
 				yield return "sendtochaterror The maze is currently moving. The command was not processed.";
 				yield break;
 			}
+			yield return "strike";
 			Steps[0].OnInteract();
 		}
 		
@@ -579,6 +580,7 @@ public class SwitchingMazeScript : MonoBehaviour
 				yield return "sendtochaterror The maze is currently moving. The command was not processed.";
 				yield break;
 			}
+			yield return "strike";
 			Steps[1].OnInteract();
 		}
 		
@@ -596,6 +598,7 @@ public class SwitchingMazeScript : MonoBehaviour
 				yield return "sendtochaterror The maze is currently moving. The command was not processed.";
 				yield break;
 			}
+			yield return "strike";
 			Steps[2].OnInteract();
 		}
 		
@@ -613,6 +616,7 @@ public class SwitchingMazeScript : MonoBehaviour
 				yield return "sendtochaterror The maze is currently moving. The command was not processed.";
 				yield break;
 			}
+			yield return "strike";
 			Steps[3].OnInteract();
 		}
 		
@@ -630,6 +634,8 @@ public class SwitchingMazeScript : MonoBehaviour
 				yield return "sendtochaterror The maze is currently moving. The command was not processed.";
 				yield break;
 			}
+			yield return "solve";
+			yield return "strike";
 			SendIt.OnInteract();
 		}
 	}
