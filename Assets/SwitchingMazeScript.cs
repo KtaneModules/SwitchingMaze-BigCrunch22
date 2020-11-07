@@ -107,7 +107,7 @@ public class SwitchingMazeScript : MonoBehaviour
 		new string[6][]{
 			new string[6] {"L", "E", "M", "E", "D", "F"},
 			new string[6] {"I", "I", "E", "A", "I", "N"},
-			new string[6] {"I", "I", "N", "I", "L", "F"},
+			new string[6] {"I", "I", "N", "I", "H", "F"},
 			new string[6] {"H", "O", "F", "H", "F", "N"},
 			new string[6] {"E", "G", "H", "F", "H", "F"},
 			new string[6] {"H", "J", "M", "H", "J", "G"}
