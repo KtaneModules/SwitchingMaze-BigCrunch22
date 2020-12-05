@@ -177,6 +177,10 @@ public class SwitchingMazeScript : MonoBehaviour
     void Start()
     {
         Coordinance();
+		for (int q = 0; q < 7; q++)
+		{
+			Steppers[q].SetActive(false);
+		}
 		Module.OnActivate += Player;
     }
 	
@@ -197,6 +201,10 @@ public class SwitchingMazeScript : MonoBehaviour
 	
 	IEnumerator FirstColor()
 	{
+		for (int q = 0; q < 7; q++)
+		{
+			Steppers[q].SetActive(true);
+		}
 		int[] ColorPair = {0, 0};
 		int Numberbret = UnityEngine.Random.Range(0,12);
 		NumberBasis = Numberbret;
@@ -483,10 +491,6 @@ public class SwitchingMazeScript : MonoBehaviour
 		Debug.LogFormat("[Switching Maze #{0}] A strike was given to you.", moduleId);
         Coordinance();
         StartCoroutine(FirstColor());
-        for (int q = 0; q < 7; q++)
-        {
-            Steppers[q].SetActive(true);
-        }
         MovingAgain = false;
 		MazeMoving = false;
     }
