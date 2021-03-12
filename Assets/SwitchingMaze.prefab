@@ -1499,7 +1499,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2737a4942f3d6e24e8242b3fa217b586, type: 2}
+  - {fileID: 2100000, guid: 63aa4abd497e08f47b8b2944c362efa2, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1898,7 +1898,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1303884322284948}
-  m_Text: 'SEED: AAAAAAAA'
+  m_Text: 'Seed: AAAAAAAA'
   m_OffsetZ: 0
   m_CharacterSize: 0.001
   m_LineSpacing: 1
@@ -1906,9 +1906,9 @@ TextMesh:
   m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 130
-  m_FontStyle: 0
+  m_FontStyle: 1
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: 2e9ce400b72c98a45ad47a8617ca8e78, type: 3}
+  m_Font: {fileID: 12800000, guid: 63aa4abd497e08f47b8b2944c362efa2, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
