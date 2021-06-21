@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using KModkit;
 
 public class SwitchingMazeScript : MonoBehaviour
 {
@@ -124,7 +123,7 @@ public class SwitchingMazeScript : MonoBehaviour
 			new string[6] {"E", "M", "K", "J", "F", "L"},
 			new string[6] {"C", "J", "J", "F", "H", "A"},
 			new string[6] {"H", "D", "F", "I", "E", "G"},
-			new string[6] {"F", "I", "I", "I", "C", "M"},
+			new string[6] {"L", "I", "I", "I", "C", "M"},
 			new string[6] {"C", "G", "I", "N", "C", "F"},
 			new string[6] {"H", "M", "H", "J", "G", "N"}
 		}
@@ -249,7 +248,7 @@ public class SwitchingMazeScript : MonoBehaviour
 				yield return new WaitForSecondsRealtime(0.05f);
 			}
 			Border.material = BorderColor[NumberBasis];
-			Debug.LogFormat("[Switching Maze #{0}] The maze switch its color to: {1}", moduleId, ColorsOfMaze[NumberBasis]);
+			Debug.LogFormat("[Switching Maze #{0}] The maze switched it's color to: {1}", moduleId, ColorsOfMaze[NumberBasis]);
 		}
 		ColorLog();
     }
@@ -470,7 +469,8 @@ public class SwitchingMazeScript : MonoBehaviour
     IEnumerator Incorrect()
     {
 		Debug.LogFormat("[Switching Maze #{0}] You slammed on a wall. The mazing is now moving.", moduleId);
-        MovingAgain = true;
+		IncorrectMove = true;
+		MovingAgain = true;
 		MazeMoving = true;
         for (int q = 0; q < 7; q++)
         {
@@ -491,6 +491,7 @@ public class SwitchingMazeScript : MonoBehaviour
 		Debug.LogFormat("[Switching Maze #{0}] A strike was given to you.", moduleId);
         Coordinance();
         StartCoroutine(FirstColor());
+		IncorrectMove = false;
         MovingAgain = false;
 		MazeMoving = false;
     }
@@ -498,7 +499,11 @@ public class SwitchingMazeScript : MonoBehaviour
     IEnumerator ActualStep()
     {
 		Debug.LogFormat("[Switching Maze #{0}] You activated your current platform. The maze is now moving.", moduleId);
-        MovingAgain = true;
+		if (Copper[0][0] == Copper[1][0] && Copper[0][1] == Copper[1][1])
+			CorrectMove = true;
+		else
+			IncorrectMove = true;
+		MovingAgain = true;
 		MazeMoving = true;
         for (int q = 0; q < 7; q++)
         {
@@ -537,17 +542,23 @@ public class SwitchingMazeScript : MonoBehaviour
             }
             MovingAgain = false;
         }
+		if (Copper[0][0] == Copper[1][0] && Copper[0][1] == Copper[1][1])
+			CorrectMove = false;
+		else
+			IncorrectMove = false;
 		MazeMoving = false;
     }
 	
 	//twitch plays
     #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"To move in the maze, use the command !{0} north/south/east/west or up/down/left/right | To activate your current platform, use the command !{0} set";
-    #pragma warning restore 414
-	
+	#pragma warning restore 414
+
 	bool TakingAStep = false;
 	bool MazeMoving = false;
-	
+	bool IncorrectMove = false;
+	bool CorrectMove = false;
+
 	IEnumerator ProcessTwitchCommand(string command)
 	{
 		string[] parameters = command.Split(' ');
@@ -642,5 +653,159 @@ public class SwitchingMazeScript : MonoBehaviour
 			yield return "strike";
 			SendIt.OnInteract();
 		}
+	}
+
+	IEnumerator TwitchHandleForcedSolve()
+	{
+		if (IncorrectMove)
+		{
+			StopAllCoroutines();
+			Digger.Stop();
+			Audio.PlaySoundAtTransform(SFX[5].name, transform);
+			Module.HandlePass();
+			ModuleSolved = true;
+			Border.material = BorderColor[11];
+			yield return new WaitForSecondsRealtime(1f);
+			Audio.PlaySoundAtTransform(SFX[7].name, transform);
+		}
+		else if (!CorrectMove)
+		{
+			reCalc:
+			while (MovingAgain) yield return true;
+			var tempBorder = NumberBasis;
+			var q = new Queue<int[]>();
+			var allMoves = new List<Movement>();
+			var startPoint = new int[] { Copper[0][0], Copper[0][1] };
+			var target = new int[] { Copper[1][0], Copper[1][1] };
+			q.Enqueue(startPoint);
+			while (q.Count > 0)
+			{
+				yield return null;
+				var next = q.Dequeue();
+				if (next[0] == target[0] && next[1] == target[1])
+					goto readyToSubmit;
+				var cell = "";
+				var allDirections = "UDRL";
+				List<int> valids = new List<int>();
+				if (Mazes[NumberBasis][next[0]][next[1]] == "A")
+				{
+					valids.Add(0);
+					valids.Add(1);
+					valids.Add(3);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "B")
+				{
+					valids.Add(0);
+					valids.Add(2);
+					valids.Add(3);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "C")
+				{
+					valids.Add(0);
+					valids.Add(1);
+					valids.Add(2);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "D")
+				{
+					valids.Add(1);
+					valids.Add(2);
+					valids.Add(3);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "E")
+				{
+					valids.Add(1);
+					valids.Add(2);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "F")
+				{
+					valids.Add(1);
+					valids.Add(3);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "G")
+				{
+					valids.Add(0);
+					valids.Add(3);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "H")
+				{
+					valids.Add(0);
+					valids.Add(2);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "I")
+				{
+					valids.Add(0);
+					valids.Add(1);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "J")
+				{
+					valids.Add(2);
+					valids.Add(3);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "K")
+				{
+					valids.Add(2);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "L")
+				{
+					valids.Add(1);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "M")
+				{
+					valids.Add(3);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "N")
+				{
+					valids.Add(0);
+				}
+				else if (Mazes[NumberBasis][next[0]][next[1]] == "O")
+				{
+					valids.Add(0);
+					valids.Add(1);
+					valids.Add(2);
+					valids.Add(3);
+				}
+				foreach (int n in valids)
+					cell += allDirections[n];
+				var offsets = new int[,] { { -1, 0 }, { 1, 0 }, { 0, 1 }, { 0, -1 } };
+				for (int i = 0; i < 4; i++)
+				{
+					var check = new int[] { next[0] + offsets[i, 0], next[1] + offsets[i, 1] };
+					if (cell.Contains(allDirections[i]) && !allMoves.Any(x => x.start[0] == check[0] && x.start[1] == check[1]))
+					{
+						q.Enqueue(new int[] { next[0] + offsets[i, 0], next[1] + offsets[i, 1] });
+						allMoves.Add(new Movement { start = next, end = new int[] { next[0] + offsets[i, 0], next[1] + offsets[i, 1] }, direction = i });
+					}
+				}
+			}
+			throw new InvalidOperationException("There is a bug in the TP autosolver.");
+			readyToSubmit:
+			if (allMoves.Count != 0) // Checks for position already being target
+			{
+				var target2 = new int[] { target[0], target[1] };
+				var lastMove = allMoves.First(x => x.end[0] == target2[0] && x.end[1] == target2[1]);
+				var relevantMoves = new List<Movement> { lastMove };
+				while (lastMove.start != startPoint)
+				{
+					lastMove = allMoves.First(x => x.end[0] == lastMove.start[0] && x.end[1] == lastMove.start[1]);
+					relevantMoves.Add(lastMove);
+				}
+				for (int i = 0; i < relevantMoves.Count; i++)
+				{
+					Steps[relevantMoves[relevantMoves.Count - 1 - i].direction].OnInteract();
+					while (TakingAStep) yield return true;
+					if (tempBorder != NumberBasis)
+						goto reCalc;
+				}
+			}
+			SendIt.OnInteract();
+		}
+		while (!ModuleSolved) yield return true;
+	}
+
+	class Movement
+	{
+		public int[] start;
+		public int[] end;
+		public int direction;
 	}
 }
